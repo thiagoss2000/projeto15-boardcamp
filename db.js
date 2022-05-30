@@ -1,14 +1,14 @@
 import pg from "pg";
-import dotenv from "dotenv";
-dotenv.config();
 
-const {Pool} = pg;
-const db = new Pool({
-  host: "localhost",
-  port: 5432,
-  user: "postgres",
-  password: process.env.PASSWORD_POSTGRES, 
-  database: "boardcamp"
-});
+const { Pool } = pg;
 
-export default db;
+const databaseConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+}
+
+const connection = new Pool(databaseConfig);
+
+export default connection;
